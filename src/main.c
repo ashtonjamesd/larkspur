@@ -1,6 +1,27 @@
 #include <stdio.h>
+#include "larkspur.h"
 
 int main() {
-    printf("Hello, World!\n");
+    // sets up configuration for the larkspur cache
+    LarkspurConfig config = {
+        .port = 8023,
+        .log_dir = "logs.txt"
+    };
+    
+    // creates an instance of the larkspur cache
+    Larkspur *larkspur = init_larkspur(config);
+
+    // this runs the larkspur cache server
+    LarkspurResult result = run(larkspur);
+
+    // checks for process errors
+    if (result != SUCCESS) {
+        log_error(larkspur->logger, "larkspur encountered an error during exection");
+    }
+
+    // frees any allocated memory used by larkspur
+    free_larkspur(larkspur);
+
+    log_info(larkspur->logger, "larkspur exited process happily %s", result != SUCCESS ? "(with errors)" : "");
     return 0;
 }
