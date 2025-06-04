@@ -1,6 +1,6 @@
 CC = gcc
 CFLGAS = -Wextra -Wall
-EXEC = build/a
+EXEC = build/larkspur
 
 SRCS = $(wildcard src/*.c)
 

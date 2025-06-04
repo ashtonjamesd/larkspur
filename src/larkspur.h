@@ -22,5 +22,6 @@ Larkspur      *init_larkspur(LarkspurConfig config);
 void           free_larkspur(Larkspur *larkspur);
 
 LarkspurResult run(Larkspur *larkspur);
+LarkspurResult run_cli(Larkspur *larkspur);
 
 #endif

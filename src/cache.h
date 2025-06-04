@@ -1,11 +1,22 @@
 #ifndef CACHE_H
 #define CACHE_H
 
+#include "result.h"
+
 typedef struct {
-    char *test;
+    char *key;
+    char *value;
+} CacheEntry;
+
+typedef struct {
+    CacheEntry *entries;
 } Cache;
 
 Cache *init_cache();
 void   free_cache(Cache *cache);
+
+LarkspurResult larkspur_set(Cache *cache, char *key, char *value);
+LarkspurResult larkspur_get(Cache *cache, char *key);
+LarkspurResult larkspur_delete(Cache *cache, char *key);
 
 #endif

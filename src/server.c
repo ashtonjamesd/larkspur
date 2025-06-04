@@ -47,7 +47,8 @@ LarkspurResult start_server(Logger logger, Server *server) {
 
         log_info(logger, "client successfully connected");
 
-        char buffer[1024];
+        char buffer[1024] = {0};
+        
         int has_read = read(clientsockfd, buffer, 1024);
         if (has_read < 0) {
             return log_error_result(logger, READ_CLIENT_BUFFER_FAILED);
