@@ -15,13 +15,14 @@ Cache *init_cache(int max_items) {
 void free_cache(Cache *cache) {
     if (!cache) return;
 
-    free(cache);
     for (int i = 0; i < cache->entry_count; i++) {
         if (cache->entries[i].key && cache->entries[i].value) {
             free(cache->entries[i].key);
             free(cache->entries[i].value);
         }
     }
+
+    free(cache);
 }
 
 int hash(char *key, int mod) {
@@ -40,7 +41,18 @@ LarkspurResult larkspur_set(Cache *cache, char *key, char *value) {
         .value = strdup(value)
     };
 
-    cache->entries[hash_key] = entry;
+    if (cache->entries[hash_key].key && strcmp(cache->entries[hash_key].key, key) == 0) {
+        free(cache->entries[hash_key].key);
+        free(cache->entries[hash_key].value);
+    }
+    else if (cache->entries[hash_key].key) {
+        printf("hashkey collision\n");
+        return SET_OK;
+    }
+    else {
+        cache->entry_count++;
+        cache->entries[hash_key] = entry;
+    }
     
     printf("ok");
     return SET_OK;
@@ -48,7 +60,7 @@ LarkspurResult larkspur_set(Cache *cache, char *key, char *value) {
 
 LarkspurResult larkspur_get(Cache *cache, char *key) {
     int hash_key = hash(key, cache->max_items);
-    if (!cache->entries[hash_key].key) {
+    if (!cache->entries[hash_key].key || strcmp(cache->entries[hash_key].key, key) != 0) {
         printf("(null)");
         return GET_NULL;
     }
@@ -75,4 +87,18 @@ LarkspurResult larkspur_delete(Cache *cache, char *key) {
 
     printf("ok");
     return DELETE_OK;
+}
+
+LarkspurResult larkspur_cache(Cache *cache, char *variable) {
+    if (strcmp(variable, "count") == 0) {
+        printf("%d", cache->entry_count);
+    }
+    else if (strcmp(variable, "max") == 0) {
+        printf("%d", cache->max_items);
+    }
+    else {
+        printf("(null)");
+    }
+
+    return SUCCESS;
 }

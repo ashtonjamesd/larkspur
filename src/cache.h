@@ -20,5 +20,6 @@ void           free_cache(Cache *cache);
 LarkspurResult larkspur_set(Cache *cache, char *key, char *value);
 LarkspurResult larkspur_get(Cache *cache, char *key);
 LarkspurResult larkspur_delete(Cache *cache, char *key);
+LarkspurResult larkspur_cache(Cache *cache, char *variable);
 
 #endif

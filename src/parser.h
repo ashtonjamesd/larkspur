@@ -7,6 +7,7 @@ typedef enum {
 
     GET,
     SET,
+    CACHE,
     DELETE,
 
     BAD,

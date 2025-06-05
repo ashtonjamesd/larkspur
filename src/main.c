@@ -6,7 +6,7 @@ int main() {
     LarkspurConfig config = {
         .port = 8024,
         .log_dir = "logs.txt",
-        .max_items = 16
+        .max_items = 8
     };
     
     // creates an instance of the larkspur cache

@@ -96,6 +96,16 @@ LarkspurResult run_cli(Larkspur *larkspur) {
             larkspur_delete(larkspur->cache, op1.value);
             log_info(larkspur->logger, "delete %s", op1.value);
         }
+        else if (command.type == CACHE) {
+            if (parser->token_count != 2) {
+                printf("command 'cache' expects one argument: <variable>\n");
+                continue;
+            }
+
+            Token op1 = parser->tokens[1];
+            larkspur_cache(larkspur->cache, op1.value);
+            log_info(larkspur->logger, "cache %s", op1.value);
+        }
         else if (strcmp(command.value, "q") == 0) {
             free_parser(parser);
             return SUCCESS;

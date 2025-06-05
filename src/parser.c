@@ -74,6 +74,9 @@ static Token parse_identifier(Parser *parser) {
     else if (strcmp("delete", value) == 0) {
         type = DELETE;
     }
+    else if (strcmp("cache", value) == 0) {
+        type = CACHE;
+    }
 
     Token token = new_token(value, type);
     free(value);
