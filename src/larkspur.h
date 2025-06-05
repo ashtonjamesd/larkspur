@@ -16,6 +16,7 @@ typedef struct {
 typedef struct {
     int   port;
     char *log_dir;
+    int   max_items;
 } LarkspurConfig;
 
 Larkspur      *init_larkspur(LarkspurConfig config);

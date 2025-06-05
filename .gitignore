@@ -2,4 +2,3 @@
 *.out
 .vscode/*
 *.txt
-build/

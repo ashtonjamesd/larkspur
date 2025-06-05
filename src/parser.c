@@ -34,14 +34,13 @@ static int is_end(Parser *parser) {
     return parser->source[parser->current] == '\0';
 }
 
-static void parser_advance(Parser *parser) {
+static inline parser_advance(Parser *parser) {
     parser->current++;
 }
 
-static char current_char(Parser *parser) {
+static inline current_char(Parser *parser) {
     return parser->source[parser->current];
 }
-
 
 static Token new_token(char *value, TokenType type) {
     Token token = {
@@ -114,6 +113,10 @@ static Token parse_token(Parser *parser) {
 
 void parse_string(Parser *parser) {
     while (!is_end(parser)) {
+        while (!is_end(parser) && isspace(current())) {
+            advance();
+        }
+
         Token token = parse_token(parser);
         
         if (parser->token_count >= parser->token_capacity) {
@@ -122,12 +125,7 @@ void parse_string(Parser *parser) {
         }
 
         parser->tokens[parser->token_count++] = token;
-        advance();
     }
 
-    parser->tokens[parser->current] = new_token("", EOF_TOKEN);
-
-    // for (int i = 0; i < parser->token_count; i++) {
-    //     printf("%s: (%d)\n", parser->tokens[i].value, parser->tokens[i].type);
-    // }
+    parser->tokens[parser->token_count] = new_token("", EOF_TOKEN);
 }

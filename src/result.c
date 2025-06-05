@@ -7,6 +7,10 @@ char *result_to_str(LarkspurResult result) {
         case SOCKET_BINDING_FAILED: return "unable to bind socket for larkspur server";
         case ACCEPT_CLIENT_SOCKET_FAILED: return "an error occurred while accepting the client socket";
         case READ_CLIENT_BUFFER_FAILED: return "an error occurred while reading client buffer";
+        case SET_OK: return "set ok";
+        case GET_OK: return "get ok";
+        case DELETE_OK: return "delete ok";
+        case KEY_NOT_FOUND_ERR: return "unable to resolve key";
         default: return "unknown result";
     }
 }

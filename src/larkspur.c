@@ -11,7 +11,7 @@ Larkspur *init_larkspur(LarkspurConfig config) {
     Larkspur *larkspur = malloc(sizeof(Larkspur));
     larkspur->err = SUCCESS;
     
-    larkspur->cache = init_cache();
+    larkspur->cache = init_cache(config.max_items);
     larkspur->server = init_server(config.port);
 
     larkspur->logger.log_dir = config.log_dir;
@@ -56,6 +56,10 @@ LarkspurResult run_cli(Larkspur *larkspur) {
 
         Parser *parser = init_parser(command_input);
         parse_string(parser);
+
+        for (int i = 0; i < parser->token_count; i++) {
+            printf("%s: (%d)\n", parser->tokens[i].value, parser->tokens[i].type);
+        }
 
         Token command = parser->tokens[0];
         

@@ -5,7 +5,8 @@ int main(int argc, char *argv[]) {
     // sets up configuration for the larkspur cache
     LarkspurConfig config = {
         .port = 8024,
-        .log_dir = "logs.txt"
+        .log_dir = "logs.txt",
+        .max_items = 16
     };
     
     // creates an instance of the larkspur cache
