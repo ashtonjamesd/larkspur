@@ -4,7 +4,7 @@
 #include "result.h"
 
 typedef struct {
-    int   key;
+    char *key;
     char *value;
 } CacheEntry;
 

@@ -42,9 +42,10 @@ LarkspurResult run(Larkspur *larkspur) {
 LarkspurResult run_cli(Larkspur *larkspur) {
     log_info(larkspur->logger, "running larkspur cli.");
 
+    printf("\n");
     while (1) {
         char command_input[128];
-        printf("\nlarkspur@127.0.0.1:%d> ", larkspur->server->port);
+        printf("larkspur@127.0.0.1:%d> ", larkspur->server->port);
         if (fgets(command_input, sizeof(command_input), stdin) == NULL) {
             break;
         }
@@ -57,10 +58,11 @@ LarkspurResult run_cli(Larkspur *larkspur) {
         Parser *parser = init_parser(command_input);
         parse_string(parser);
 
-        for (int i = 0; i < parser->token_count; i++) {
-            printf("%s: (%d)\n", parser->tokens[i].value, parser->tokens[i].type);
-        }
+        // for (int i = 0; i < parser->token_count; i++) {
+        //     printf("%s: (%d)\n", parser->tokens[i].value, parser->tokens[i].type);
+        // }
 
+        if (parser->token_count == 0) continue;
         Token command = parser->tokens[0];
         
         if (command.type == SET) {
@@ -72,6 +74,7 @@ LarkspurResult run_cli(Larkspur *larkspur) {
             Token op1 = parser->tokens[1];
             Token op2 = parser->tokens[2];
             larkspur_set(larkspur->cache, op1.value, op2.value);
+            log_info(larkspur->logger, "set %s: %s", op1.value, op2.value);
         }
         else if (command.type == GET) {
             if (parser->token_count != 2) {
@@ -81,6 +84,7 @@ LarkspurResult run_cli(Larkspur *larkspur) {
 
             Token op1 = parser->tokens[1];
             larkspur_get(larkspur->cache, op1.value);
+            log_info(larkspur->logger, "get %s", op1.value);
         }
         else if (command.type == DELETE) {
             if (parser->token_count != 2) {
@@ -90,6 +94,7 @@ LarkspurResult run_cli(Larkspur *larkspur) {
 
             Token op1 = parser->tokens[1];
             larkspur_delete(larkspur->cache, op1.value);
+            log_info(larkspur->logger, "delete %s", op1.value);
         }
         else if (strcmp(command.value, "q") == 0) {
             free_parser(parser);
@@ -98,6 +103,8 @@ LarkspurResult run_cli(Larkspur *larkspur) {
         else {
             printf("unknown command '%s'", command.value);
         }
+
+        free_parser(parser);
         printf("\n");
     }
 

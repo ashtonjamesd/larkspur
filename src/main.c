@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "larkspur.h"
 
-int main(int argc, char *argv[]) {
+int main() {
     // sets up configuration for the larkspur cache
     LarkspurConfig config = {
         .port = 8024,

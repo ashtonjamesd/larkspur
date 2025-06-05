@@ -9,9 +9,12 @@ typedef enum {
     READ_CLIENT_BUFFER_FAILED,
 
     SET_OK,
+
     GET_OK,
+    GET_NULL,
+
     DELETE_OK,
-    KEY_NOT_FOUND_ERR,
+    DELETE_NULL,
 } LarkspurResult;
 
 char *result_to_str(LarkspurResult result);

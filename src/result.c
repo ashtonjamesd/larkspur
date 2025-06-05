@@ -9,8 +9,9 @@ char *result_to_str(LarkspurResult result) {
         case READ_CLIENT_BUFFER_FAILED: return "an error occurred while reading client buffer";
         case SET_OK: return "set ok";
         case GET_OK: return "get ok";
+        case GET_NULL: return "get null";
         case DELETE_OK: return "delete ok";
-        case KEY_NOT_FOUND_ERR: return "unable to resolve key";
+        case DELETE_NULL: return "delete null";
         default: return "unknown result";
     }
 }

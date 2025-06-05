@@ -34,11 +34,11 @@ static int is_end(Parser *parser) {
     return parser->source[parser->current] == '\0';
 }
 
-static inline parser_advance(Parser *parser) {
+static inline void parser_advance(Parser *parser) {
     parser->current++;
 }
 
-static inline current_char(Parser *parser) {
+static inline int current_char(Parser *parser) {
     return parser->source[parser->current];
 }
 
@@ -126,6 +126,4 @@ void parse_string(Parser *parser) {
 
         parser->tokens[parser->token_count++] = token;
     }
-
-    parser->tokens[parser->token_count] = new_token("", EOF_TOKEN);
 }
