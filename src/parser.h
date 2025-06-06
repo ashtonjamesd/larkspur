@@ -9,6 +9,8 @@ typedef enum {
     SET,
     CACHE,
     DELETE,
+    START,
+    STOP,
 
     BAD,
     EOF_TOKEN,

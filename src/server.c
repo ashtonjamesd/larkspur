@@ -10,6 +10,7 @@
 Server *init_server(const int port) {
     Server *server = malloc(sizeof(Server));
     server->port = port;
+    server->running = 0;
 
     return server;
 }
@@ -20,7 +21,16 @@ void free_server(Server *server) {
     free(server);
 }
 
-LarkspurResult start_server(Logger logger, Server *server) {
+void *server_thread_func(void *args) {
+    ServerThreadArgs *server_args = (ServerThreadArgs *)args;
+    start_server(server_args->logger, server_args->server);
+    free(server_args);
+
+    return NULL;
+}
+
+LarkspurResult start_server(Logger logger, Server *server)
+{
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
         return log_error_result(logger, SOCKET_OPENING_FAILED);
@@ -55,7 +65,6 @@ LarkspurResult start_server(Logger logger, Server *server) {
         }
 
         log_info(logger, "received payload: %s", buffer);
-        printf("%s", buffer);
     }
 
     return SUCCESS;

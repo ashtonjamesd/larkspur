@@ -4,7 +4,7 @@
 #include "result.h"
 
 typedef struct {
-    char *log_dir;
+    char *log_directory;
 } Logger;
 
 void           log_info(Logger logger, const char *fmt, ...);

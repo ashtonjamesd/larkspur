@@ -7,7 +7,7 @@
 #include "result.h"
 
 static void log_message(Logger logger, char *type, const char *fmt, va_list args) {
-    FILE *fptr = fopen(logger.log_dir, "a");
+    FILE *fptr = fopen(logger.log_directory, "a");
     if (!fptr) return;
 
     fprintf(fptr, "%s", type);

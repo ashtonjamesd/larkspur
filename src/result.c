@@ -12,6 +12,7 @@ char *result_to_str(LarkspurResult result) {
         case GET_NULL: return "get null";
         case DELETE_OK: return "delete ok";
         case DELETE_NULL: return "delete null";
+        case THREAD_CREATION_FAILED: return "a thread could not be created";
         default: return "unknown result";
     }
 }

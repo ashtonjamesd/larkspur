@@ -77,6 +77,12 @@ static Token parse_identifier(Parser *parser) {
     else if (strcmp("cache", value) == 0) {
         type = CACHE;
     }
+    else if (strcmp("start", value) == 0) {
+        type = START;
+    }
+    else if (strcmp("stop", value) == 0) {
+        type = STOP;
+    }
 
     Token token = new_token(value, type);
     free(value);

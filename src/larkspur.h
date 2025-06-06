@@ -15,7 +15,7 @@ typedef struct {
 
 typedef struct {
     int   port;
-    char *log_dir;
+    char *log_directory;
     int   max_items;
 } LarkspurConfig;
 
@@ -23,6 +23,5 @@ Larkspur      *init_larkspur(LarkspurConfig config);
 void           free_larkspur(Larkspur *larkspur);
 
 LarkspurResult run(Larkspur *larkspur);
-LarkspurResult run_cli(Larkspur *larkspur);
 
 #endif

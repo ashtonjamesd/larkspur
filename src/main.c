@@ -5,7 +5,7 @@ int main() {
     // sets up configuration for the larkspur cache
     LarkspurConfig config = {
         .port = 8024,
-        .log_dir = "logs.txt",
+        .log_directory = "logs.txt",
         .max_items = 8
     };
     
@@ -13,7 +13,7 @@ int main() {
     Larkspur *larkspur = init_larkspur(config);
 
     // this runs the larkspur cache server/cli
-    LarkspurResult result = run_cli(larkspur);
+    LarkspurResult result = run(larkspur);
 
     // checks for process errors
     if (result != SUCCESS) {
@@ -23,6 +23,7 @@ int main() {
     // frees any allocated memory used by larkspur
     free_larkspur(larkspur);
 
+    // output the process result of the program
     log_info(larkspur->logger, "larkspur exited process happily %s", result != SUCCESS ? "(with errors)" : "");
     return 0;
 }
